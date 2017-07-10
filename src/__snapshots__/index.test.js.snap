@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Transform Colors 1`] = `".red { color: #FF4136; }"`;
+exports[`Transform Blue 1`] = `".blue { color: #0074D9; }"`;
+
+exports[`Transform Green 1`] = `".green { color: #2ECC40; }"`;
+
+exports[`Transform Orange 1`] = `".orange { color: #FF851B; }"`;
+
+exports[`Transform Red 1`] = `".red { color: #FF4136; }"`;
+
+exports[`Transform Yellow 1`] = `".yellow { color: #FFDC00; }"`;
