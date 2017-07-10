@@ -20,15 +20,14 @@
     "url": "https://github.com/zaim/postcss-color-palette.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "jest"
   },
   "dependencies": {
-    "postcss-message-helpers": "^1.1.1",
-    "webcolors": "^1.1.0"
+    "jest": "^20.0.4",
+    "postcss-message-helpers": "^2.0.0",
+    "webcolors": "^1.2.2"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1",
-    "mocha": "^2.1.0",
-    "postcss": "^3.0.7"
+    "postcss": "^6.0.6"
   }
 }
