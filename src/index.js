@@ -39,9 +39,9 @@ var KEYWORDS = [
   "yellow"
 ]
 
-var KEYWORD_REGEX = new RegExp("\\b(" + KEYWORDS.join("|") + ")\\b")
+var KEYWORD_REGEX = new RegExp(`\\b(${ KEYWORDS.join("|") })\\b`)
 
-export default postcss.plugin("postcss-color-palette", function(opts) {
+export default postcss.plugin("postcss-color-palette", (opts) => {
   opts = opts || {}
   opts.palette = opts.palette || DEFAULTS
 
@@ -49,7 +49,7 @@ export default postcss.plugin("postcss-color-palette", function(opts) {
     if (webcolors.hasOwnProperty(opts.palette)) {
       opts.palette = webcolors[opts.palette]
     } else {
-      throw new Error('Unknown webcolors palette: "' + opts.palette + '"')
+      throw new Error(`Unknown webcolors palette: "${ opts.palette }"`)
     }
   }
 
@@ -58,14 +58,14 @@ export default postcss.plugin("postcss-color-palette", function(opts) {
 
   // For each color keyword, generate a [RegExp, 'replacement'] pair,
   // i.e. the arguments to String.prototype.replace
-  KEYWORDS.forEach(function(keyword) {
+  KEYWORDS.forEach((keyword) => {
     if (palette.hasOwnProperty(keyword) && palette[keyword]) {
-      transforms.push([new RegExp("\\b(" + keyword + ")(\\s*([^(]|$))", "gi"), palette[keyword] + "$2"])
+      transforms.push([ new RegExp(`\\b(${ keyword })(\\s*([^(]|$))`, "gi"), `${palette[keyword] }$2` ])
     }
   })
 
   return function processor(css) {
-    css.walkDecls(function transformDecl(decl) {
+    css.walkDecls((decl) => {
       // Check if the decl is of a color-related property and make sure
       // it has a value containing a replaceable color
       if (PROPS.indexOf(decl.prop) === -1 || !decl.value || !KEYWORD_REGEX.test(decl.value)) {
@@ -73,9 +73,9 @@ export default postcss.plugin("postcss-color-palette", function(opts) {
       }
 
       // Transform!
-      decl.value = helpers.try(function transformValue() {
-        return transforms.reduce(function(value, args) {
-          return value.replace.apply(value, args)
+      decl.value = helpers.try(() => {
+        return transforms.reduce((value, args) => {
+          return value.replace(...args)
         }, decl.value)
       }, decl.source)
     })
