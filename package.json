@@ -1,5 +1,5 @@
 {
-  "name": "postcss-color-palette",
+  "name": "postcss-better-colors",
   "version": "0.0.3",
   "description": "PostCSS plugin to transform CSS2 color keywords to a custom palette",
   "keywords": [
@@ -10,22 +10,36 @@
     "colour",
     "palette"
   ],
-  "homepage": "https://github.com/zaim/postcss-color-palette",
-  "bugs": "https://github.com/zaim/postcss-color-palette/issues",
-  "license": "MIT",
-  "author": "zaim <abuzaim12@gmail.com>",
-  "main": "index.js",
+  "engines": {
+    "node": ">=6.0.0",
+    "yarn": ">=0.21.3",
+    "npm": ">=4.0.0"
+  },
+  "homepage": "https://github.com/sebastian-software/postcss-better-colors",
+  "bugs": "https://github.com/sebastian-software/postcss-better-colors/issues",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Sebastian Software",
+    "email": "s.werner@sebastian-software.de",
+    "url": "sebastian-software.de"
+  },
+  "main": "lib/index.commonjs.js",
+  "module": "lib/index.esmodules.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zaim/postcss-color-palette.git"
+    "url": "https://github.com/sebastian-software/postcss-better-colors.git"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "release": "release-it --github.release --npm.publish --non-interactive",
+    "release:minor": "release-it --github.release --npm.publish --non-interactive --increment minor",
+    "release:major": "release-it --github.release --npm.publish --non-interactive --increment major"
   },
   "dependencies": {
     "babel-preset-edge": "^0.9.6",
     "jest": "^20.0.4",
     "postcss-message-helpers": "^2.0.0",
+    "prepublish": "^1.0.2",
     "webcolors": "^1.2.2"
   },
   "devDependencies": {
