@@ -1,5 +1,5 @@
-var helpers   = require('postcss-message-helpers');
-var webcolors = require('webcolors');
+import helpers from 'postcss-message-helpers'
+import webcolors from 'webcolors'
 
 var DEFAULTS = webcolors.mrmrs;
 
@@ -41,7 +41,7 @@ var KEYWORDS = [
 var KEYWORD_REGEX = new RegExp('\\b(' + KEYWORDS.join('|') + ')\\b');
 
 
-module.exports = function plugin (opts) {
+export default function plugin (opts) {
   opts = opts || {};
   opts.palette = opts.palette || DEFAULTS;
 
@@ -68,7 +68,7 @@ module.exports = function plugin (opts) {
   });
 
   return function processor (css) {
-    css.eachDecl(function transformDecl (decl) {
+    css.walkDecls(function transformDecl (decl) {
       // Check if the decl is of a color-related property and make sure
       // it has a value containing a replaceable color
       if (PROPS.indexOf(decl.prop) === -1 ||
