@@ -1,3 +1,4 @@
+import postcss from "postcss"
 import helpers from 'postcss-message-helpers'
 import webcolors from 'webcolors'
 
@@ -41,7 +42,7 @@ var KEYWORDS = [
 var KEYWORD_REGEX = new RegExp('\\b(' + KEYWORDS.join('|') + ')\\b');
 
 
-export default function plugin (opts) {
+export default postcss.plugin("postcss-color-palette", function (opts) {
   opts = opts || {};
   opts.palette = opts.palette || DEFAULTS;
 
@@ -69,6 +70,7 @@ export default function plugin (opts) {
 
   return function processor (css) {
     css.walkDecls(function transformDecl (decl) {
+      console.log(decl)
       // Check if the decl is of a color-related property and make sure
       // it has a value containing a replaceable color
       if (PROPS.indexOf(decl.prop) === -1 ||
@@ -84,4 +86,4 @@ export default function plugin (opts) {
       }, decl.source);
     });
   };
-};
+});
