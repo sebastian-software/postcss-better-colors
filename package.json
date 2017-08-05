@@ -37,14 +37,14 @@
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major"
   },
   "dependencies": {
-    "postcss-message-helpers": "^2.0.0",
-    "prepublish": "^1.2.6",
-    "webcolors": "^1.2.2"
+    "postcss": "6.x",
+    "postcss-message-helpers": "2.x",
+    "webcolors": "1.x"
   },
   "devDependencies": {
+    "prepublish": "^1.2.6",
     "babel-preset-edge": "^1.1.2",
     "jest": "^20.0.4",
-    "readable-code": "^3.4.8",
-    "postcss": "^6.0.8"
+    "readable-code": "^3.4.8"
   }
 }
