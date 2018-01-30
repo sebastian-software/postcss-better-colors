@@ -45,7 +45,7 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
   opts.palette = opts.palette || DEFAULTS
 
   if (typeof opts.palette === "string") {
-    if (webcolors.hasOwnProperty(opts.palette)) {
+    if (Object.prototype.hasOwnProperty.call(webcolors, opts.palette)) {
       opts.palette = webcolors[opts.palette]
     } else {
       throw new Error(`Unknown webcolors palette: "${opts.palette}"`)
@@ -58,7 +58,7 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
   // For each color keyword, generate a [RegExp, 'replacement'] pair,
   // i.e. the arguments to String.prototype.replace
   KEYWORDS.forEach((keyword) => {
-    if (palette.hasOwnProperty(keyword) && palette[keyword]) {
+    if (Object.prototype.hasOwnProperty.call(palette, keyword) && palette[keyword]) {
       transforms.push([
         new RegExp(`\\b(${keyword})(\\s*([^(]|$))`, "gi"),
         `${palette[keyword]}$2`
