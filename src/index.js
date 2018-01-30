@@ -2,11 +2,11 @@ import postcss from "postcss"
 import helpers from "postcss-message-helpers"
 import webcolors from "webcolors"
 
-var DEFAULTS = webcolors.mrmrs
+const DEFAULTS = webcolors.mrmrs
 
 // All props that use the <color> data type
 // https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#See_also
-var PROPS = [
+const PROPS = [
   "color",
   "background",
   "background-color",
@@ -19,7 +19,7 @@ var PROPS = [
 ]
 
 // CSS color keywords to replace
-var KEYWORDS = [
+const KEYWORDS = [
   "aqua",
   "black",
   "blue",
@@ -39,10 +39,9 @@ var KEYWORDS = [
   "yellow"
 ]
 
-var KEYWORD_REGEX = new RegExp(`\\b(${ KEYWORDS.join("|") })\\b`)
+const KEYWORD_REGEX = new RegExp(`\\b(${ KEYWORDS.join("|") })\\b`)
 
-export default postcss.plugin("postcss-color-palette", (opts) => {
-  opts = opts || {}
+export default postcss.plugin("postcss-color-palette", (opts = {}) => {
   opts.palette = opts.palette || DEFAULTS
 
   if (typeof opts.palette === "string") {
@@ -53,8 +52,8 @@ export default postcss.plugin("postcss-color-palette", (opts) => {
     }
   }
 
-  var palette = opts.palette
-  var transforms = []
+  const palette = opts.palette
+  const transforms = []
 
   // For each color keyword, generate a [RegExp, 'replacement'] pair,
   // i.e. the arguments to String.prototype.replace
