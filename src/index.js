@@ -66,8 +66,12 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
     }
   })
 
-  return function processor(css) {
-    css.walkDecls((decl) => {
+  function reducer(value, args) {
+    return value.replace(...args)
+  }
+
+  return function processor(sheet) {
+    sheet.walkDecls((decl) => {
       // Check if the decl is of a color-related property and make sure
       // it has a value containing a replaceable color
       if (
@@ -79,10 +83,9 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
       }
 
       // Transform!
+      // eslint-disable-next-line immutable/no-mutation
       decl.value = helpers.try(() => {
-        return transforms.reduce((value, args) => {
-          return value.replace(...args)
-        }, decl.value)
+        return transforms.reduce(reducer, decl.value)
       }, decl.source)
     })
   }
