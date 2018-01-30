@@ -39,7 +39,7 @@ const KEYWORDS = [
   "yellow"
 ]
 
-const KEYWORD_REGEX = new RegExp(`\\b(${ KEYWORDS.join("|") })\\b`)
+const KEYWORD_REGEX = new RegExp(`\\b(${KEYWORDS.join("|")})\\b`)
 
 export default postcss.plugin("postcss-color-palette", (opts = {}) => {
   opts.palette = opts.palette || DEFAULTS
@@ -48,7 +48,7 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
     if (webcolors.hasOwnProperty(opts.palette)) {
       opts.palette = webcolors[opts.palette]
     } else {
-      throw new Error(`Unknown webcolors palette: "${ opts.palette }"`)
+      throw new Error(`Unknown webcolors palette: "${opts.palette}"`)
     }
   }
 
@@ -59,7 +59,10 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
   // i.e. the arguments to String.prototype.replace
   KEYWORDS.forEach((keyword) => {
     if (palette.hasOwnProperty(keyword) && palette[keyword]) {
-      transforms.push([ new RegExp(`\\b(${ keyword })(\\s*([^(]|$))`, "gi"), `${palette[keyword] }$2` ])
+      transforms.push([
+        new RegExp(`\\b(${keyword})(\\s*([^(]|$))`, "gi"),
+        `${palette[keyword]}$2`
+      ])
     }
   })
 
@@ -67,7 +70,11 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
     css.walkDecls((decl) => {
       // Check if the decl is of a color-related property and make sure
       // it has a value containing a replaceable color
-      if (PROPS.indexOf(decl.prop) === -1 || !decl.value || !KEYWORD_REGEX.test(decl.value)) {
+      if (
+        PROPS.indexOf(decl.prop) === -1 ||
+        !decl.value ||
+        !KEYWORD_REGEX.test(decl.value)
+      ) {
         return
       }
 
