@@ -58,7 +58,10 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
   // For each color keyword, generate a [RegExp, 'replacement'] pair,
   // i.e. the arguments to String.prototype.replace
   KEYWORDS.forEach((keyword) => {
-    if (Object.prototype.hasOwnProperty.call(palette, keyword) && palette[keyword]) {
+    if (
+      Object.prototype.hasOwnProperty.call(palette, keyword) &&
+      palette[keyword]
+    ) {
       transforms.push([
         new RegExp(`\\b(${keyword})(\\s*([^(]|$))`, "gi"),
         `${palette[keyword]}$2`
