@@ -12,7 +12,7 @@
   ],
   "engines": {
     "node": ">=6.0.0",
-    "yarn": ">=0.21.3",
+    "yarn": ">=1.0.0",
     "npm": ">=4.0.0"
   },
   "homepage": "https://github.com/sebastian-software/postcss-better-colors",
@@ -23,8 +23,8 @@
     "email": "s.werner@sebastian-software.de",
     "url": "https://www.sebastian-software.de"
   },
-  "main": "lib/index.commonjs.js",
-  "module": "lib/index.esmodules.js",
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sebastian-software/postcss-better-colors.git"
@@ -32,9 +32,9 @@
   "scripts": {
     "test": "jest",
     "prepare": "prepublish",
-    "lint:js": "eslint .",
-    "fix:js": "eslint --fix .",
-    "format:js": "prettier --write 'src/**/*.{js,mjs}' '*.{js,mjs}' && npm run fix:js",
+    "lint:js": "eslint --ignore-path .gitignore .",
+    "fix:js": "eslint --ignore-path .gitignore --fix .",
+    "format:js": "prettier --ignore-path .gitignore --write '**/*.{js,mjs}' && npm run fix:js",
     "release": "release-it --github.release --npm.publish --non-interactive",
     "release:minor": "release-it --github.release --npm.publish --non-interactive --increment minor",
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major"
