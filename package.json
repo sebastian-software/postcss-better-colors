@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-rc.1",
+    "core-js": "^2.5.7",
     "postcss": "^7.0.2",
     "postcss-message-helpers": "^2.0.0",
     "webcolors": "^1.2.2"
