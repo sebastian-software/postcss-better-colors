@@ -44,20 +44,20 @@
     "release:major": "release-it --github.release --npm.publish --non-interactive --increment major"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
+    "@babel/runtime": "^7.1.5",
     "core-js": "^2.5.7",
-    "postcss": "^7.0.2",
+    "postcss": "^7.0.5",
     "postcss-message-helpers": "^2.0.0",
     "webcolors": "^1.2.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "babel-preset-edge": "^4.13.1",
-    "eslint": "^5.6.0",
+    "babel-preset-edge": "^4.13.5",
+    "eslint": "^5.9.0",
     "eslint-config-readable": "^2.2.0",
     "jest": "^23.6.0",
-    "preppy": "^4.4.0",
+    "preppy": "^6.5.0",
     "rimraf": "^2.6.2"
   }
 }
