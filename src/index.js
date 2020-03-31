@@ -6,7 +6,7 @@ const DEFAULTS = webcolors.mrmrs
 
 // All props that use the <color> data type
 // https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#See_also
-const PROPS = [
+const PROPS = new Set([
   "color",
   "background",
   "background-color",
@@ -16,7 +16,7 @@ const PROPS = [
   "outline-color",
   "text-shadow",
   "box-shadow"
-]
+])
 
 // CSS color keywords to replace
 const KEYWORDS = [
@@ -41,18 +41,18 @@ const KEYWORDS = [
 
 const KEYWORD_REGEX = new RegExp(`\\b(${KEYWORDS.join("|")})\\b`)
 
-export default postcss.plugin("postcss-color-palette", (opts = {}) => {
-  opts.palette = opts.palette || DEFAULTS
+export default postcss.plugin("postcss-color-palette", (options = {}) => {
+  options.palette = options.palette || DEFAULTS
 
-  if (typeof opts.palette === "string") {
-    if (Object.prototype.hasOwnProperty.call(webcolors, opts.palette)) {
-      opts.palette = webcolors[opts.palette]
+  if (typeof options.palette === "string") {
+    if (Object.prototype.hasOwnProperty.call(webcolors, options.palette)) {
+      options.palette = webcolors[options.palette]
     } else {
-      throw new Error(`Unknown webcolors palette: "${opts.palette}"`)
+      throw new Error(`Unknown webcolors palette: "${options.palette}"`)
     }
   }
 
-  const palette = opts.palette
+  const palette = options.palette
   const transforms = []
 
   // For each color keyword, generate a [RegExp, 'replacement'] pair,
@@ -66,8 +66,8 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
     }
   })
 
-  function reducer(value, args) {
-    return value.replace(...args)
+  function reducer(value, arguments_) {
+    return value.replace(...arguments_)
   }
 
   return function processor(sheet) {
@@ -75,7 +75,7 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
       // Check if the decl is of a color-related property and make sure
       // it has a value containing a replaceable color
       if (
-        PROPS.indexOf(decl.prop) === -1 ||
+        !PROPS.has(decl.prop) ||
         !decl.value ||
         !KEYWORD_REGEX.test(decl.value)
       ) {
@@ -84,9 +84,7 @@ export default postcss.plugin("postcss-color-palette", (opts = {}) => {
 
       // Transform!
       // eslint-disable-next-line immutable/no-mutation
-      decl.value = helpers.try(() => {
-        return transforms.reduce(reducer, decl.value)
-      }, decl.source)
+      decl.value = helpers.try(() => transforms.reduce(reducer, decl.value), decl.source)
     })
   }
 })
